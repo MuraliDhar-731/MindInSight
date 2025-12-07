@@ -1,6 +1,9 @@
 **MedInSight-RAG: Retrieval-Augmented Biomedical Question Answering**
+
 **A Comparative Study of BioGPT, Flan-T5, and Phi-2**
+
 **University of New Haven**
+
 **Authors: Muralidhar Kolimali, Sunaina Makkena, Spandana Dammanagari**
 
 **Overview**
