@@ -58,19 +58,8 @@ Evaluation via semantic and factual metrics
 
 **Architecture Flow:**
 
-User Query
-     ↓
-BioBERT Embedding
-     ↓
-FAISS Similarity Search
-     ↓
-Top-k Biomedical Evidence
-     ↓
-RAG Prompt Builder
-     ↓
-LLM Generation (BioGPT / Flan-T5 / Phi-2)
-     ↓
-Final Biomedical Answer
+<img width="432" height="401" alt="image" src="https://github.com/user-attachments/assets/c498ccc2-a5c2-4c0d-b3d6-6d08af033c00" />
+
 
 **4.Dataset**
 
