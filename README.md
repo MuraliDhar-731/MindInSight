@@ -6,53 +6,52 @@
 
 ## 🧬 Overview
 
-**MedInSight-RAG** is a biomedical Retrieval-Augmented Generation (RAG) system designed to enhance factual accuracy, evidence usage, and scientific reliability in biomedical question answering.  
-This project compares three widely used LLMs:
+**MedInSight-RAG** is a biomedical Retrieval-Augmented Generation (RAG) system designed to improve factual accuracy, reduce hallucinations, and enhance reasoning in biomedical question answering.
+
+This project evaluates three LLMs:
 
 - **BioGPT**
 - **Flan-T5**
 - **Phi-2**
 
-By grounding model outputs in **domain-validated PubMed evidence**, MedInSight-RAG significantly reduces hallucinations and improves biomedical reasoning.
+The system integrates:
+
+- BioBERT embeddings  
+- FAISS dense retrieval  
+- Top-k evidence extraction  
+- Structured RAG prompting  
+- Biomedical evaluation metrics  
 
 ---
 
-## 🧠 Academic Motivation
+## 🧠 Motivation
 
-Biomedical question answering is a **high-stakes, evidence-sensitive** domain.  
-Conventional LLMs frequently:
+Biomedical literature is complex and high-stakes. General-purpose LLMs often:
 
-- invent biological mechanisms  
+- hallucinate biological mechanisms  
 - misinterpret molecular pathways  
-- produce unsupported clinical/biomedical claims  
+- produce unsupported biomedical claims  
 
-RAG offers a principled solution by retrieving domain-specific evidence before generation, enabling:
-
-- increased factual grounding  
-- reduced hallucination rates  
-- improved semantic alignment with gold biomedical answers  
-- greater trustworthiness in real-world biomedical contexts  
+MedInSight-RAG addresses this by grounding responses in **real PubMed evidence**, significantly improving factuality and reasoning quality.
 
 ---
 
 ## 🧱 System Architecture
 
-The MedInSight-RAG architecture integrates embedding-based retrieval and multi-model answer generation.  
-This pipeline mirrors modern RAG systems used in biomedical NLP research.
+Below is the **validated GitHub-compatible Mermaid architecture diagram**.
 
-### 📐 **Architecture Diagram (Mermaid)**  
-*(This will render automatically on GitHub)*
+### 📐 Architecture Diagram
 
 ```mermaid
 flowchart TD
 
 A[User Question] --> B[BioBERT Embeddings]
 
-B --> C[10k-Passage Biomedical Corpus]
-C --> D[FAISS Dense Retrieval]
-D --> E[Top-k Evidence Retrieval]
+B --> C[10k-Passage\nBiomedical Corpus]
+C --> D[FAISS Dense\nRetrieval]
+D --> E[Top-k Evidence\nRetrieval]
 
-E --> F[RAG Prompt Construction]
-F --> G[LLM Answer Generation<br>(BioGPT / Flan-T5 / Phi-2)]
+E --> F[RAG Prompt\nConstruction]
+F --> G[LLM Answer Generation\nBioGPT / Flan-T5 / Phi-2]
 
-G --> H[Evaluation Framework<br>• BERTScore Similarity<br>• Factual Accuracy<br>• Hallucination Severity]
+G --> H[Evaluation Framework\nSemantic Similarity\nFactual Accuracy\nHallucination Analysis]
