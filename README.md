@@ -1,130 +1,119 @@
-**MedInSight-RAG: Retrieval-Augmented Biomedical Question Answering**
+# 📘 MedInSight-RAG  
+### Retrieval-Augmented Biomedical Question Answering  
+*A Comparative Study of BioGPT, Flan-T5, and Phi-2*
 
-**A Comparative Study of BioGPT, Flan-T5, and Phi-2**
+---
 
-**University of New Haven**
+## 🧬 Overview
 
-**Authors: Muralidhar Kolimali, Sunaina Makkena, Spandana Dammanagari**
+**MedInSight-RAG** is a biomedical Retrieval-Augmented Generation (RAG) system designed to improve factual accuracy, reduce hallucinations, and enhance reasoning in biomedical question answering.
 
-**1.Overview**
+The project evaluates three Large Language Models:
 
-MedInSight-RAG is a biomedical Retrieval-Augmented Generation (RAG) system designed to improve factual accuracy and reasoning in biomedical question answering.
+- **BioGPT**  
+- **Flan-T5**  
+- **Phi-2**
 
-Because biomedical information is sensitive and high-stakes, Large Language Models (LLMs) often hallucinate facts. This project evaluates how RAG improves reliability across three LLMs:
+All models are grounded using:
 
-**BioGPT**
+- **BioBERT embeddings**  
+- **FAISS dense retrieval**  
+- **Top-k PubMed passages**  
+- **RAG-style prompt construction**
 
-**Flan-T5**
+This ensures that generated answers are evidence-based, scientifically plausible, and more reliable for biomedical use cases.
 
-**Phi-2**
+---
 
-The pipeline integrates:
+## 🏥 Why RAG for Biomedical QA?
 
-BioBERT embeddings
+Biomedical text is high-stakes and highly specialized.  
+Traditional LLMs often:
 
-FAISS dense retrieval
+- Hallucinate biological mechanisms  
+- Misinterpret pathways  
+- Generate unsupported claims  
+- Confuse similar medical terminology  
 
-LLM generation using three different models
+**RAG mitigates these issues** by grounding model outputs in retrieved biomedical literature, improving both factual accuracy and reasoning.
 
-Biomedical evaluation metrics (semantic similarity, factual accuracy, hallucination)
+---
 
-**2.Motivation**
+## 🏗️ System Architecture
 
-Biomedical text is complex. Traditional LLMs:
+The MedInSight-RAG pipeline includes:
 
-Invent mechanisms
+1. **BioBERT** → Convert passages into dense biomedical embeddings  
+2. **FAISS** → Perform similarity search over a 10k-passage PubMed corpus  
+3. **Top-k Retrieval** → Select evidence passages  
+4. **RAG Prompting** → Insert evidence into model prompt  
+5. **LLM Answer Generation** → BioGPT / Flan-T5 / Phi-2  
+6. **Evaluation** → Semantic similarity + factuality scoring  
 
-Misinterpret pathways
+**Architecture Flow**
 
-Provide unsupported claims
+![Architecture](https://github.com/user-attachments/assets/c498ccc2-a5c2-4c0d-b3d6-6d08af033c00)
 
-RAG reduces hallucination by grounding model responses in retrieved PubMed literature.
+---
 
-**3.System Architecture**
+## 📚 Dataset
 
-The MedInSight-RAG pipeline consists of:
+We use a curated subset of **PubMedQA**, containing:
 
-Biomedical text embeddings (BioBERT)
+- 1,000+ biomedical questions  
+- Cleaned abstracts free of citation clutter  
+- A 10k-passage retrieval corpus  
+- Yes / No / Maybe reasoning labels  
 
-FAISS similarity search on a 10k-passage corpus
+PubMedQA is ideal for RAG because it emphasizes **fact-based biomedical reasoning**.
 
-Top-k evidence retrieval
+---
 
-RAG prompt construction
+## 📊 Evaluation Metrics
 
-Answer generation using BioGPT, Flan-T5, or Phi-2
+### **Quantitative**
+- **BERTScore F1** – Semantic similarity  
+- **Factuality scoring (Flan-T5 classifier)**  
 
-Evaluation via semantic and factual metrics
+### **Qualitative**
+- Evidence usage  
+- Biomedical plausibility  
+- Hallucination severity  
 
-**Architecture Flow:**
+---
 
-<img width="432" height="401" alt="image" src="https://github.com/user-attachments/assets/c498ccc2-a5c2-4c0d-b3d6-6d08af033c00" />
-
-
-**4.Dataset**
-
-We use a processed subset of the PubMedQA dataset, containing:
-
-Domain-validated biomedical Q&A pairs
-
-Extracted 1,000+ biomedical questions
-
-A 10k-passage evidence retrieval corpus
-
-Cleaned passages free from citations, extraneous references, and metadata
-
-PubMedQA focuses on yes/no/maybe reasoning and is well-suited for RAG evaluation.
-
-**5.Evaluation**
-
-**Quantitative Metrics**
-
-1.BERTScore F1 → semantic similarity
-
-2.Factuality scoring using Flan-T5
-
-**Qualitative Metrics**
-
-1.Evidence usage
-
-2.Biomedical plausibility
-
-3.Hallucination severity
-
-**6.Results Summary**
+## 🧪 Results Summary
 
 | Model   | Similarity | Accuracy | Composite |
-| ------- | ---------- | -------- | --------- |
-| BioGPT  | 0.81       | 0.72     | 0.765     |
-| Flan-T5 | **0.87**   | **0.83** | **0.85**  |
+|--------|------------|----------|-----------|
+| BioGPT | 0.81       | 0.72     | 0.765     |
+| **Flan-T5** | **0.87** | **0.83** | **0.85**  |
 | Phi-2   | 0.78       | 0.69     | 0.735     |
 
-**7.Key Observations**
+### Key Findings
 
-**Flan-T5** → Best factuality & grounding
+- **Flan-T5** → Best overall factual grounding  
+- **BioGPT** → Highly fluent but more hallucinations  
+- **Phi-2** → Lightweight but lowest biomedical specificity  
 
-**BioGPT** → Most fluent but hallucinates more
+---
 
-**Phi-2** → Efficient but weakest biomedical specificity
+## 🔮 Future Work
 
-**8.Future Work**
+- Hybrid retrieval (dense + sparse)  
+- Cross-encoder reranking  
+- Fine-tuning models on biomedical evidence chains  
+- Expansion to full PubMed corpus  
 
-1.Hybrid retrieval (dense + sparse)
+---
 
-2.Reranking with cross-encoders
+## 👥 Contributors
 
-3.Fine-tuning LLMs on biomedical evidence chains
+- **Muralidhar Kolimali** – Embeddings, FAISS, model integration  
+- **Sunaina Makkena** – Dataset processing, evaluation  
+- **Spandana Dammanagari** – Model experimentation, qualitative analysis  
 
-4.Larger corpus expansion beyond PubMedQA
+---
 
-**9.Contributors**
+## 📖 Citation
 
-1.Muralidhar Kolimali – Embeddings, FAISS, model integration
-
-2.Sunaina Makkena – Dataset processing, evaluation
-
-3.Spandana Dammanagari – Model experimentation, analysis
-
-**10.Reference**
-
-All details are based on our paper:
