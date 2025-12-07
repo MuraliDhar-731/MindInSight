@@ -1,10 +1,10 @@
-# 📘 MedInSight-RAG  
+#  MedInSight-RAG  
 ### Retrieval-Augmented Biomedical Question Answering  
 **A Comparative Study of BioGPT, Flan-T5, and Phi-2**
 
 ---
 
-## 🧬 Overview
+##  Overview
 
 **MedInSight-RAG** is a biomedical Retrieval-Augmented Generation (RAG) system designed to improve factual accuracy, reduce hallucinations, and enhance reasoning in biomedical question answering.
 
@@ -24,7 +24,7 @@ The system integrates:
 
 ---
 
-## 🧠 Motivation
+##  Motivation
 
 Biomedical literature is complex and high-stakes. General-purpose LLMs often:
 
@@ -36,7 +36,7 @@ MedInSight-RAG addresses this by grounding responses in **real PubMed evidence**
 
 ---
 
-## 🧱 System Architecture
+##  System Architecture
 
 Below is the **validated GitHub-compatible Mermaid architecture diagram**.
 
