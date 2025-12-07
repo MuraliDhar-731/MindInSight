@@ -6,7 +6,7 @@
 
 **Authors: Muralidhar Kolimali, Sunaina Makkena, Spandana Dammanagari**
 
-**Overview**
+**1.Overview**
 
 MedInSight-RAG is a biomedical Retrieval-Augmented Generation (RAG) system designed to improve factual accuracy and reasoning in biomedical question answering.
 
@@ -28,7 +28,7 @@ LLM generation using three different models
 
 Biomedical evaluation metrics (semantic similarity, factual accuracy, hallucination)
 
-**Motivation**
+**2.Motivation**
 
 Biomedical text is complex. Traditional LLMs:
 
@@ -40,7 +40,7 @@ Provide unsupported claims
 
 RAG reduces hallucination by grounding model responses in retrieved PubMed literature.
 
-**System Architecture**
+**3.System Architecture**
 
 The MedInSight-RAG pipeline consists of:
 
@@ -59,20 +59,32 @@ Evaluation via semantic and factual metrics
 **Architecture Flow:**
 
 User Query
+
      ↓
+     
 BioBERT Embedding
+
      ↓
+     
 FAISS Similarity Search
+
      ↓
+     
 Top-k Biomedical Evidence
+
      ↓
+     
 RAG Prompt Builder
+
      ↓
+     
 LLM Generation (BioGPT / Flan-T5 / Phi-2)
+
      ↓
+     
 Final Biomedical Answer
 
-**Dataset**
+**4.Dataset**
 
 We use a processed subset of the PubMedQA dataset, containing:
 
@@ -86,7 +98,7 @@ Cleaned passages free from citations, extraneous references, and metadata
 
 PubMedQA focuses on yes/no/maybe reasoning and is well-suited for RAG evaluation.
 
-**Evaluation**
+**5.Evaluation**
 
 **Quantitative Metrics**
 
@@ -102,7 +114,7 @@ PubMedQA focuses on yes/no/maybe reasoning and is well-suited for RAG evaluation
 
 3.Hallucination severity
 
-**Results Summary**
+**6.Results Summary**
 
 | Model   | Similarity | Accuracy | Composite |
 | ------- | ---------- | -------- | --------- |
@@ -110,7 +122,7 @@ PubMedQA focuses on yes/no/maybe reasoning and is well-suited for RAG evaluation
 | Flan-T5 | **0.87**   | **0.83** | **0.85**  |
 | Phi-2   | 0.78       | 0.69     | 0.735     |
 
-**Key Observations**
+**7.Key Observations**
 
 **Flan-T5** → Best factuality & grounding
 
@@ -118,7 +130,7 @@ PubMedQA focuses on yes/no/maybe reasoning and is well-suited for RAG evaluation
 
 **Phi-2** → Efficient but weakest biomedical specificity
 
-**Future Work**
+**8.Future Work**
 
 1.Hybrid retrieval (dense + sparse)
 
@@ -128,7 +140,7 @@ PubMedQA focuses on yes/no/maybe reasoning and is well-suited for RAG evaluation
 
 4.Larger corpus expansion beyond PubMedQA
 
-**Contributors**
+**9.Contributors**
 
 1.Muralidhar Kolimali – Embeddings, FAISS, model integration
 
@@ -136,6 +148,6 @@ PubMedQA focuses on yes/no/maybe reasoning and is well-suited for RAG evaluation
 
 3.Spandana Dammanagari – Model experimentation, analysis
 
-**Reference**
+**10.Reference**
 
 All details are based on our paper:
