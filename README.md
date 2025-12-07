@@ -1,216 +1,87 @@
-# 📘 MedInSight-RAG  
+# MedInSight-RAG  
 ### Retrieval-Augmented Biomedical Question Answering  
 **A Comparative Study of BioGPT, Flan-T5, and Phi-2**
 
 ---
 
-## 🧬 Overview
+## Abstract
 
-**MedInSight-RAG** is a biomedical Retrieval-Augmented Generation (RAG) system designed to improve factual accuracy, reduce hallucinations, and enhance reasoning in biomedical question answering.  
-
-This project compares three LLMs:
-
-- **BioGPT**
-- **Flan-T5**
-- **Phi-2**
-
-The system integrates:
-
-- BioBERT embeddings  
-- FAISS dense retrieval  
-- Top-k evidence extraction  
-- Structured RAG prompting  
-- Biomedical evaluation metrics  
-
-MedInSight-RAG demonstrates how retrieval-grounded reasoning substantially improves LLM behavior in the biomedical domain.
+Biomedical question answering requires precise, evidence-grounded reasoning. Large Language Models (LLMs) often hallucinate unsupported claims—especially in biomedical contexts where factual accuracy is critical. **MedInSight-RAG** introduces a retrieval-augmented pipeline combining BioBERT embeddings, FAISS dense retrieval, and top-k biomedical evidence integration to improve LLM reliability. We evaluate three models—**BioGPT**, **Flan-T5**, and **Phi-2**—across semantic similarity, factual correctness, and hallucination severity using a curated subset of the PubMedQA dataset. Results demonstrate that RAG significantly enhances factual grounding, with **Flan-T5 achieving the strongest overall performance**.
 
 ---
 
-## 🧠 Motivation
+## 1. Introduction
 
-Biomedical QA requires:
-
-- factual correctness  
-- domain-aware reasoning  
-- evidence-grounded responses  
-
-However, general-purpose LLMs often:
-
-- hallucinate biological mechanisms  
-- misinterpret complex pathways  
-- generate unsupported scientific claims  
-
-RAG provides a principled solution:  
-**retrieve first → reason with evidence → generate controlled answers**.
+LLMs excel at generating text but struggle in specialized, high-stakes biomedical domains. Common failure modes include hallucinated biological mechanisms, incorrect clinical claims, and misuse of terminology. Retrieval-Augmented Generation (RAG) mitigates these issues by grounding answers in domain-specific literature. **MedInSight-RAG** implements a complete retrieval → grounding → generation pipeline for biomedical QA.
 
 ---
 
-## 🧱 System Architecture
+## 2. System Architecture
 
-### 📐 Architecture Diagram (GitHub-Compatible Mermaid)
+MedInSight-RAG includes:
 
-```mermaid
-flowchart TD
+1. **BioBERT embeddings** for query and passage representation  
+2. **FAISS dense retrieval** over a 10k-passage biomedical corpus  
+3. **Top-k evidence selection**  
+4. **RAG prompt construction**  
+5. **LLM answer generation** (BioGPT, Flan-T5, Phi-2)  
+6. **Evaluation metrics for semantic similarity, factuality, and hallucination severity**
 
-A[User Question] --> B[BioBERT Embeddings]
+---
 
-B --> C[10k-Passage\nBiomedical Corpus]
-C --> D[FAISS Dense\nRetrieval]
-D --> E[Top-k Evidence\nRetrieval]
+## 3. Dataset
 
-E --> F[RAG Prompt\nConstruction]
-F --> G[LLM Answer Generation\nBioGPT / Flan-T5 / Phi-2]
+We use a curated subset of **PubMedQA**, containing:
 
-G --> H[Evaluation Framework\nSemantic Similarity\nFactual Accuracy\nHallucination Analysis]
+- 1,000+ biomedical questions  
+- 10,000 cleaned PubMed passages  
+- Yes/No/Maybe reasoning labels  
+- Cleaned text without citation or metadata noise  
 
+---
 
+## 4. Evaluation
 
+### Quantitative Metrics
+- **BERTScore F1** for semantic similarity  
+- **Factuality scoring (Flan-T5 classifier)** for biomedical correctness  
 
-Dataset
+### Qualitative Metrics
+- Evidence usage  
+- Biomedical plausibility  
+- Hallucination severity  
 
-The system uses a curated version of the PubMedQA biomedical dataset.
+---
 
-Dataset Components
+## 5. Results
 
-1,000+ biomedical QA pairs
+| Model   | Similarity | Accuracy | Composite |
+|--------|------------|----------|-----------|
+| BioGPT | 0.81       | 0.72     | 0.765     |
+| **Flan-T5** | **0.87** | **0.83** | **0.85**  |
+| Phi-2   | 0.78       | 0.69     | 0.735     |
 
-10,000 cleaned and preprocessed evidence passages
+---
 
-Removed:
+## 6. Future Work
 
-citation noise
+- Hybrid retrieval (dense + sparse)  
+- Cross-encoder reranking  
+- Fine-tuning LLMs on biomedical reasoning  
+- Scaling beyond PubMedQA  
 
-PubMed metadata
+---
 
-non-semantic identifiers
+## 7. Contributors
 
-Why PubMedQA?
+- **Muralidhar Kolimali**  
+- **Sunaina Makkena**  
+- **Spandana Dammanagari**
 
-It emphasizes factual biomedical reasoning, making it an ideal benchmark for RAG systems requiring:
+---
 
-domain fidelity
+## Citation
 
-controlled hallucination
-
-evidence grounding
-
-🧪 Evaluation Framework
-
-Our evaluation pipeline is structured around quantitative and qualitative biomedical metrics.
-
-🔢 1. Quantitative Metrics
-BERTScore F1
-
-Evaluates semantic similarity
-
-Better suited to biomedical semantics than BLEU/ROUGE
-
-Factuality Scoring (Flan-T5)
-
-Evaluates correctness of biomedical claims
-
-Trained to verify scientific statements
-
-🔬 2. Qualitative Metrics
-Evidence Attribution
-
-Evaluates whether generated answers correctly use retrieved passages.
-
-Biomedical Plausibility
-
-Assesses:
-
-mechanistic correctness
-
-domain terminology integrity
-
-reasoning validity
-
-Hallucination Severity
-
-Categories:
-
-factual misinterpretation
-
-mechanistic hallucination
-
-fabricated biological claims
-
-📊 Results Summary
-Model Comparison Table
-Model	Semantic Similarity	Factual Accuracy	Composite Score
-BioGPT	0.81	0.72	0.765
-Flan-T5	0.87	0.83	0.85
-Phi-2	0.78	0.69	0.735
-🔍 Key Insights
-⭐ Flan-T5 — Best Overall
-
-Strongest evidence grounding
-
-Best factual accuracy
-
-Lowest hallucination rate
-
-⭐ BioGPT — Most Fluent, Least Reliable
-
-Generates domain-sounding text
-
-But prone to mechanistic hallucination
-
-⭐ Phi-2 — Lightweight but Limited
-
-Efficient
-
-Reasonable performance on simple questions
-
-Struggles with biomedical depth
-
-🔮 Future Work
-
-The project identifies several opportunities for expanded research:
-
-1️⃣ Hybrid Retrieval Systems
-
-Combine:
-
-FAISS dense retrieval
-
-BM25 sparse retrieval
-for higher recall and precision.
-
-2️⃣ Cross-Encoder Reranking
-
-Use biomedical cross-encoders to refine top-k passages.
-
-3️⃣ Fine-Tuning LLMs
-
-Training BioGPT/Flan-T5/Phi-2 on:
-
-biomedical reasoning chains
-
-citation-aligned datasets
-
-PubMed-scale corpora
-
-4️⃣ Extended Corpora
-
-Beyond PubMedQA:
-
-full PubMed abstracts
-
-clinical notes
-
-NIH trial summaries
-
-5️⃣ Evidence-Linked Explanations
-
-Generate answers with explicit citation mapping:
-“Evidence from Passage 3 suggests that…”
-
-👥 Contributors
-
-Muralidhar Kolimali — Embeddings, FAISS retrieval, model integration
-
-Sunaina Makkena — Dataset preparation, evaluation design
-
-Spandana Dammanagari — LLM experiments, qualitative analysis
+Kolimali M., Makkena S., Dammanagari S.  
+MedInSight-RAG: Retrieval-Augmented Biomedical Question Answering.  
+University of New Haven, 2025.
